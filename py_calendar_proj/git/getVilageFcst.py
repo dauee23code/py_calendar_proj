@@ -15,13 +15,17 @@ def base_time():
     announcement = [2, 5, 8, 11, 14, 17, 20, 23]
 
     # 기상청 단기예보 발표 시각 중 현재 시각과 가까운 값을 구한다.
-    # 값이 현재 시각보다 크면 그 이전의 시각을 구한다.
     announcement.sort()
-    N = min(announcement, key=lambda x:abs(x - n))
-    if N >= n:
-        x = N-3
-    else:
+    N = min(announcement, key=lambda x: abs(x - n))
+
+    # 값이 현재 시각보다 크면 그 이전의 시각을 구한다.
+    if N <= n:
         x = N
+    else:
+        if N - 3 < 0:
+            x = announcement[-1]
+        else:
+            x = N - 3
 
     # 변수 x의 값을 HH00 형태로 치환한다.
     if x >= 10:
