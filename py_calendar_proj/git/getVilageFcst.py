@@ -78,7 +78,8 @@ def get_nxy():
 
     return nx, ny
 
-# 기상청 단기예보 데이터를 json 형식으로 반환한다.
+# 기상청 단기예보(json data) 출력 함수
+# (nx, ny)의 변수 선언이 선행되어야 한다.
 # 공공데이터포털(data.go.kr)에서 일반 인증키(Encoding) 발급 필요
 def getVilageFcst():
     url = 'http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst'
