@@ -1,6 +1,5 @@
 import requests
 import json
-import time
 from urllib.request import urlopen
 from datetime import datetime
 
@@ -45,24 +44,23 @@ def get_nxy():
 
     with urlopen(f'https://www.kma.go.kr/DFSROOT/POINT/DATA/top.json.txt') as resp:
         response1 = json.load(resp)
-        top_list = eval(str(response1))
 
-    city_code = [str(top_list[_].get('code')) for _ in range(len(top_list)) if city in top_list[_].values()][0]
+    # json.load()로 받아온 리스트 안에서 변수 city에 저장된 값이 value 값과 일치하는 딕셔너리를 찾는다.
+    # 찾은 딕셔너리에서 "code"가 key 값인 value 값을 가져온다.
+    city_code = [str(response1[_].get('code')) for _ in range(len(response1)) if city in response1[_].values()][0]
 
     with urlopen(f'https://www.kma.go.kr/DFSROOT/POINT/DATA/mdl.{str(city_code)}.json.txt') as resp:
         response2 = json.load(resp)
-        mdl_list = eval(str(response2))
 
-    mdl_code = [str(mdl_list[_].get('code')) for _ in range(len(mdl_list)) if mdl in mdl_list[_].values()][0]
+    mdl_code = [str(response2[_].get('code')) for _ in range(len(response2)) if mdl in response2[_].values()][0]
 
     with urlopen(f'https://www.kma.go.kr/DFSROOT/POINT/DATA/leaf.{str(mdl_code)}.json.txt') as resp:
         response3 = json.load(resp)
-        leaf_list = eval(str(response3))
 
-    for _ in range(len(leaf_list)):
-        if leaf in leaf_list[_].values():
-            nx = str(leaf_list[_].get('x'))
-            ny = str(leaf_list[_].get('y'))
+    for _ in range(len(response3)):
+        if leaf in response3[_].values():
+            nx = str(response3[_].get('x'))
+            ny = str(response3[_].get('y'))
             break
 
     return nx, ny
@@ -73,9 +71,7 @@ def get_nxy():
 # 공공데이터포털(data.go.kr)에서 일반 인증키(Encoding) 발급 필요
 def get_VF():
     url = 'http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst'
-    serviceKey = '### 일반 인증키 (Encoding) ###'
-    time.sleep(0.5)
-    params = {'serviceKey': {serviceKey},
+    params = {'serviceKey': '### 일반 인증키 (Encoding) ###',
               'pageNo': '1',
               'numOfRows': '1000',
               'dataType': 'json',
@@ -103,6 +99,11 @@ if __name__ == "__main__":
         nx, ny = get_nxy()
         print(f'YOUR GRID INFO : ({nx}, {ny})\n')
 
-    # 입력된 정보를 통해 기상청에 데이터를 요청하고, 출력한다.
-    data = get_VF()
+    print()
+
+    # 에러 메세지가 아닌 값을 받아올 때까지 3초를 주기로 data.go.kr에 데이터를 요청한다.
+    data = 'errMsg'
+    while 'errMsg' in str(data):
+        data = get_VF()
+        time.sleep(3)
     print(data)
