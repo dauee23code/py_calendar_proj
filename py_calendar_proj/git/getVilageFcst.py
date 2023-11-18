@@ -90,6 +90,7 @@ if __name__ == "__main__":
     temp = str(input('INSERT YOUR GRID INFO (ex. 96 74) OR ENTER : '))
     if temp != '':
         nx, ny = temp.split()
+        print(f'YOUR GRID INFO : ({nx}, {ny})\n')
     del temp
 
     if ('nx' and 'ny') not in locals():
