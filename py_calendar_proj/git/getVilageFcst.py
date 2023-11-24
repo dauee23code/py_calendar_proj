@@ -94,7 +94,10 @@ def rainfall(response, val):
             if i['category'] == 'POP' and i['fcstDate'] == base_date:
                 if i['fcstValue'] != '0':
                     POP.append(i)
-        print('오늘 강수가 일어날 시간대는 아래와 같습니다.')
+        if POP == []:
+            print('오늘은 우산이 필요없는 날입니다.')
+        else:
+            print('오늘 강수가 일어날 시간대는 아래와 같습니다.')
         for j in POP:
             print(f"{j['fcstTime']} : 강수확률은 {j['fcstValue']}%")
 
@@ -103,7 +106,10 @@ def rainfall(response, val):
             if i['category'] == 'POP' and i['fcstDate'] == str(ast.literal_eval(base_date)+1):
                 if i['fcstValue'] != '0':
                     POP.append(i)
-        print('내일 강수가 일어날 시간대는 아래와 같습니다.')
+        if POP == []:
+            print('내일은 우산이 필요없는 날입니다.')
+        else:
+            print('내일 강수가 일어날 시간대는 아래와 같습니다.')
         for j in POP:
             print(f"{j['fcstTime']} : 강수확률은 {j['fcstValue']}%")
 
@@ -112,7 +118,10 @@ def rainfall(response, val):
             if i['category'] == 'POP' and i['fcstDate'] == str(ast.literal_eval(base_date)+2):
                 if i['fcstValue'] != '0':
                     POP.append(i)
-        print('모레 강수가 일어날 시간대는 아래와 같습니다.')
+        if POP == []:
+            print('모레는 우산이 필요없는 날입니다.')
+        else:
+            print('모레 강수가 일어날 시간대는 아래와 같습니다.')
         for j in POP:
             print(f"{j['fcstTime']} : 강수확률은 {j['fcstValue']}%")
 
@@ -134,6 +143,30 @@ if __name__ == "__main__":
         print(f'YOUR GRID INFO : ({nx}, {ny})\n')
 
     res = get_VF()
-    rainfall(res, 0)
-    rainfall(res, 1)
-    rainfall(res, 2)
+
+    if 'errMsg' not in res:
+        print('''
+⣿⣿⣿⣿⣿⣿⣿⣿⡿⠋⠁⠀⠉⠙⠛⠿⠛⠉⠀⠀⠀⠉⢻⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⡿⠋⠀⢀⠔⠒⠒⠒⠒⠀⠠⠔⠚⠉⠉⠁⠀⠙⢿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⠟⢋⠀⠀⠀⠀⣠⢔⠤⠀⢤⣤⡀⠠⣢⡭⠋⡙⢿⣭⡨⠻⣿⣿⣿⣿
+⣿⣿⣿⠇⢀⠆⠀⠀⠀⣪⣴⣿⠐⢬⠀⣿⡗⣾⣿⡇⠈⠦⢸⣿⠗⢠⠿⠿⣿⣿
+⣿⣿⡏⠀⠀⠀⢀⡀⠀⠈⠛⠻⠄⠀⠠⠋⠀⠈⠛⠻⠆⠀⠈⢀⡠⣬⣠⢣⣶⢸
+⣿⡿⠀⠀⠀⣶⡌⣇⣿⢰⠷⠦⠄⣀⣀⣀⣀⣀⣀⣠⣤⠶⠞⡛⠁⣿⣿⣾⣱⢸
+⣿⡇⠀⠀⠀⣬⣽⣿⣿⢸⡜⢿⣷⣶⣶⣶⣯⣽⣦⡲⣾⣿⡇⣿⠀⣌⠿⣿⠏⣼
+⣿⡇⠀⠀⠀⠹⣿⡿⢫⡈⠻⢦⡹⢟⣛⣛⣛⣛⣛⣡⠿⣫⡼⠃⠀⣿⡷⢠⣾⣿
+⣿⡇⡀⠀⠀⠀⠀⠰⣿⣷⡀⠀⠙⠳⠦⣭⣭⣭⣵⡶⠿⠋⠀⢀⣴⣿⡇⣾⣿⣿
+⣿⢠⣿⣦⣄⣀⠀⠀⢻⣿⣧⠀⠀⠀⠀⠀⠀⠀⠀⠀ ⣀⣤⣶⣿⣿⡟⣰⣿⣿⣿
+⡇⣸⣿⣿⣿⣿⣿⣷⣦⢹⣿⣇⢠⣤⣤⣤⣤⣶⣾⣿⣿⣿⣿⣿⣿⡇⢹⣿⣿⣿
+⡇⣿⣿⣿⣿⣿⣿⣿⣿⣎⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠏⣸⣿⣿⣿
+⣧⡘⠿⢿⣿⣿⣿⣿⣿⣿⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠟⢋⣡⣾⣿⣿⣿⣿
+⣿⣿⣿⣶⣤⣍⣉⣛⣛⡛⠛⠛⢛⣛⣛⣛⣛⣉⣩⣭⣤⣴⣶⣿⣿⣿⣿⣿⣿⣿
+
+SUCCEED!\n''')
+
+    refineres = input('오늘, 내일, 모레 중 강수가 일어날 시간대를 알고 싶은 날을 모두 입력하세요 : ')
+    if '오늘' in refineres:
+        rainfall(res, 0)
+    if '내일' in refineres:
+        rainfall(res, 1)
+    if '모레' in refineres:
+        rainfall(res, 2)
