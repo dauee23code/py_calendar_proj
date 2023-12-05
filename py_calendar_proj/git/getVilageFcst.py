@@ -1,4 +1,5 @@
 import ast
+import time
 from datetime import datetime
 import requests
 from urllib import parse
@@ -142,31 +143,23 @@ if __name__ == "__main__":
         nx, ny = get_nxy()
         print(f'YOUR GRID INFO : ({nx}, {ny})\n')
 
-    res = get_VF()
+    try:
+        res = get_VF()
+    except Exception as e:
+        print('SOMETHING WENT WRONG...')
 
-    if 'errMsg' not in res:
-        print('''
-⣿⣿⣿⣿⣿⣿⣿⣿⡿⠋⠁⠀⠉⠙⠛⠿⠛⠉⠀⠀⠀⠉⢻⣿⣿⣿⣿⣿⣿⣿
-⣿⣿⣿⣿⣿⣿⡿⠋⠀⢀⠔⠒⠒⠒⠒⠀⠠⠔⠚⠉⠉⠁⠀⠙⢿⣿⣿⣿⣿⣿
-⣿⣿⣿⣿⠟⢋⠀⠀⠀⠀⣠⢔⠤⠀⢤⣤⡀⠠⣢⡭⠋⡙⢿⣭⡨⠻⣿⣿⣿⣿
-⣿⣿⣿⠇⢀⠆⠀⠀⠀⣪⣴⣿⠐⢬⠀⣿⡗⣾⣿⡇⠈⠦⢸⣿⠗⢠⠿⠿⣿⣿
-⣿⣿⡏⠀⠀⠀⢀⡀⠀⠈⠛⠻⠄⠀⠠⠋⠀⠈⠛⠻⠆⠀⠈⢀⡠⣬⣠⢣⣶⢸
-⣿⡿⠀⠀⠀⣶⡌⣇⣿⢰⠷⠦⠄⣀⣀⣀⣀⣀⣀⣠⣤⠶⠞⡛⠁⣿⣿⣾⣱⢸
-⣿⡇⠀⠀⠀⣬⣽⣿⣿⢸⡜⢿⣷⣶⣶⣶⣯⣽⣦⡲⣾⣿⡇⣿⠀⣌⠿⣿⠏⣼
-⣿⡇⠀⠀⠀⠹⣿⡿⢫⡈⠻⢦⡹⢟⣛⣛⣛⣛⣛⣡⠿⣫⡼⠃⠀⣿⡷⢠⣾⣿
-⣿⡇⡀⠀⠀⠀⠀⠰⣿⣷⡀⠀⠙⠳⠦⣭⣭⣭⣵⡶⠿⠋⠀⢀⣴⣿⡇⣾⣿⣿
-⣿⢠⣿⣦⣄⣀⠀⠀⢻⣿⣧⠀⠀⠀⠀⠀⠀⠀⠀⠀ ⣀⣤⣶⣿⣿⡟⣰⣿⣿⣿
-⡇⣸⣿⣿⣿⣿⣿⣷⣦⢹⣿⣇⢠⣤⣤⣤⣤⣶⣾⣿⣿⣿⣿⣿⣿⡇⢹⣿⣿⣿
-⡇⣿⣿⣿⣿⣿⣿⣿⣿⣎⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠏⣸⣿⣿⣿
-⣧⡘⠿⢿⣿⣿⣿⣿⣿⣿⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠟⢋⣡⣾⣿⣿⣿⣿
-⣿⣿⣿⣶⣤⣍⣉⣛⣛⡛⠛⠛⢛⣛⣛⣛⣛⣉⣩⣭⣤⣴⣶⣿⣿⣿⣿⣿⣿⣿
+        res = get_VF()
+        while 'errMsg' in res:
+            res = get_VF()
+            time.sleep(5)
 
-SUCCEED!\n''')
+        if 'errMsg' not in res:
+            print('SUCCEED!')
 
-    refineres = input('오늘, 내일, 모레 중 강수가 일어날 시간대를 알고 싶은 날을 모두 입력하세요 : ')
-    if '오늘' in refineres:
+    refine_res = input('오늘, 내일, 모레 중 강수가 일어날 시간대를 알고 싶은 날을 모두 입력하세요 : ')
+    if '오늘' in refine_res:
         rainfall(res, 0)
-    if '내일' in refineres:
+    if '내일' in refine_res:
         rainfall(res, 1)
-    if '모레' in refineres:
+    if '모레' in refine_res:
         rainfall(res, 2)
