@@ -58,17 +58,18 @@ if __name__ == "__main__":
     cal_list = []
 
     while True:
-        what2do = input('1. MEMO / 2. DEL / 3. CHECK (TAP NUM) : ')
+        while True:
+            what2do = input('1. MEMO / 2. DEL / 3. CHECK (TAP NUM) : ')
 
-        if (what2do == '1') or (what2do == 'MEMO'):
-            memo(input('MEMO (ex. 1999.12.31 12:00 세기말) : '))
-            break
-        elif (what2do == '2') or (what2do == 'DEL'):
-            del_memo(input('YYYY.MM.DD HH:mm (ex. 1999.12.31 12:00) : '))
-            break
-        elif (what2do == '3') or (what2do == 'CHECK'):
-            tod, nowl = checker(cal_list)
-            print(f'오늘 해야할 일 : {tod}')
-            print(f'지금 해야할 일 : {nowl}')
+            if (what2do == '1') or (what2do == 'MEMO'):
+                memo(input('MEMO (ex. 1999.12.31 12:00 세기말) : '))
+                continue
+            elif (what2do == '2') or (what2do == 'DEL'):
+                del_memo(input('YYYY.MM.DD HH:mm (ex. 1999.12.31 12:00) : '))
+                continue
+            elif (what2do == '3') or (what2do == 'CHECK'):
+                tod_do, now_do = checker(cal_list)
+                print(f'오늘 해야할 일 : {tod_do}')
+                print(f'지금 해야할 일 : {now_do}')
 
         print(cal_list)
