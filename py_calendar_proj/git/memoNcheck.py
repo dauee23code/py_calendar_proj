@@ -71,5 +71,8 @@ if __name__ == "__main__":
                 tod_do, now_do = checker(cal_list)
                 print(f'오늘 해야할 일 : {tod_do}')
                 print(f'지금 해야할 일 : {now_do}')
+                continue
+            elif what2do == '3':
+                break
 
         print(cal_list)
