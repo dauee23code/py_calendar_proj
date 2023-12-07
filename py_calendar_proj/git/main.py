@@ -149,7 +149,7 @@ def option_2():
             del_memo(input('YYYY.MM.DD HH:mm (ex. 1999.12.31 12:00) : '))
             continue
         elif (what2do == '3') or (what2do == 'CHECK'):
-            tod_do, now_do = checker(cal_list)
+            tod_do = checker(cal_list)
             print(f'오늘 해야할 일 : {tod_do}')
             continue
         elif (what2do == '4') or (what2do == 'Exit'):
