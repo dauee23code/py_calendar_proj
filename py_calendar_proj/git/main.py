@@ -135,13 +135,7 @@ def option_2():
             if ymd in str(i.keys()):
                 today_list.append(list(i.values())[0])
 
-        # 날짜와 시간이 모두 같은 메모들을 모두 불러와서 now_list에 저장한다.
-        now_list = []
-        for j in some_list:
-            if ymd_hm in str(j.keys()):
-                now_list.append(list(j.values())[0])
-
-        return today_list, now_list
+        return today_list
 
     cal_list = []
 
@@ -157,7 +151,6 @@ def option_2():
         elif (what2do == '3') or (what2do == 'CHECK'):
             tod_do, now_do = checker(cal_list)
             print(f'오늘 해야할 일 : {tod_do}')
-            print(f'지금 해야할 일 : {now_do}')
             continue
         elif (what2do == '4') or (what2do == 'Exit'):
             break
