@@ -311,21 +311,26 @@ def option_3():
 
 
 def input_option():
-    print("1. 오늘의 운세 확인하기!")
-    print("2. 두 번째 옵션")
-    print("3. 세 번째 옵션")
 
     while True:
+        print('''
+        1. 운세 확인
+        2. 메모 및 일정
+        3. 날씨 예보\n''')
+
         choice = input("실행할 옵션의 번호를 입력하세요: ")
 
-        if choice == '1':
+        if (choice == '1') or ("운세" in choice):
             option_1()
-        elif choice == '2':
+            print()
+        elif (choice == '2') or ("메모" in choice):
             option_2()
-        elif choice == '3':
+            print()
+        elif (choice == '3') or ("날씨" in choice):
             option_3()
+            print()
         else:
-            print("올바른 옵션 번호를 입력하세요.")
+            print("정상적인 값이 아닙니다. 다시 시도하세요.")
 
 
 if __name__ == "__main__":
